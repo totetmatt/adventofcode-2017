@@ -11,12 +11,12 @@ Source.fromFile(filename)
 Source.fromFile(filename)
   .getLines.map(_.toInt)
 
-// Very nice, but very inefficient 
+// Very nice, but very inefficient
 val P = Seq(0,3,0,1,-3)
 P.patch(0,Seq(10),1)
 def run(p:Seq[Int],i:Int=0,acc:Int=0): Int={
      p.lift(i) match {
-       case a:Some[Int] => run(p.patch(i,Seq(a.get+1),1),i+a.get,acc+1)
+       case a:Some[Int] => run(p.updated(i,a.get+1),i+a.get,acc+1)
        case _ => acc
      }
 }
@@ -28,9 +28,9 @@ run(Source.fromFile(filename)
 def run2(p:Seq[Int],i:Int=0,acc:Int=0): Int= {
   p.lift(i) match {
     case a: Some[Int] => if (a.get >= 3) {
-      run(p.patch(i, Seq(a.get - 1), 1), i + a.get, acc + 1)
+      run(p.updated(i, a.get - 1), i + a.get, acc + 1)
     } else {
-      run(p.patch(i, Seq(a.get + 1), 1), i + a.get, acc + 1)
+      run(p.updated(i, a.get + 1), i + a.get, acc + 1)
     }
     case _ => acc
   }
