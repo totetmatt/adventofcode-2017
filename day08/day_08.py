@@ -23,5 +23,6 @@ for l in TEST:
     if eval(use_reg(condition)):
         reg[instruction.split(' ')[0]] = eval(use_reg(instruction))
     max_reg = max(max_reg,reg.most_common()[0][1])
+
 print(max_reg)
 print(reg.most_common())
